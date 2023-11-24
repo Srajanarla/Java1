@@ -1,6 +1,5 @@
 package com.example.parctical3.service;
 
-import com.example.parctical3.service.BookService;
 import com.example.parctical3.dto.BookDTO;
 import com.example.parctical3.entity.Book;
 import com.example.parctical3.repository.BookRepository;
