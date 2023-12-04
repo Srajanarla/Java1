@@ -2,18 +2,25 @@ package com.example.parctical3.service;
 
 import com.example.parctical3.dto.BookDTO;
 import com.example.parctical3.entity.Book;
+import com.example.parctical3.entity.UserInfo;
 import com.example.parctical3.repository.BookRepository;
+import com.example.parctical3.repository.UserInfoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 @Service(value="BookService")
 public class BookServiceImpl implements BookService{
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private UserInfoRepository userInfoRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	@Override
 	public String addBook(BookDTO bookDTO) {
 		// TODO Auto-generated method stub
@@ -69,6 +76,12 @@ public class BookServiceImpl implements BookService{
 		Optional<Book> received=bookRepository.findById(bookId);
 		bookRepository.delete(received.get());
 		return "Book "+bookId+" delted Successfully";
+	}
+	@Override
+	public String addUser(UserInfo userInfo) {
+		userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+        userInfoRepository.save(userInfo);
+        return "user added to system ";
 	}
 	
 	
